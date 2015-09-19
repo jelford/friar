@@ -4,11 +4,11 @@ from unittest import mock
 import json
 
 class JsonMatching():
-	def __init__(self, expected_dict):
-		self.expected_dict = expected_dict
-	
-	def __eq__(self, other):
-		return json.loads(other) == self.expected_dict
+    def __init__(self, expected_dict):
+        self.expected_dict = expected_dict
+    
+    def __eq__(self, other):
+        return json.loads(other) == self.expected_dict
 
 
 from jsonrpcclient import *
