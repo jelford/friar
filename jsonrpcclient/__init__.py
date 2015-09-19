@@ -22,6 +22,7 @@ class _JsonRpcMethod():
 			'method': '{prefix}{name}'.format(prefix=self.method_prefix, name=self.name),
 			'id': 1
 		}
+
 		if params:
 			data['params'] = params
 		
