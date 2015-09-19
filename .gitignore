@@ -8,6 +8,9 @@ share
 pip-selfcheck.json
 pyvenv.cfg
 
+### manually added python ###
+
+*.pye*
 
 # Created by https://www.gitignore.io/api/python,vim
 
