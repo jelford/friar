@@ -1,9 +1,9 @@
-__author__='jelford'
-
 import json
+
 
 class BadJsonRpcParametersError(RuntimeError):
     pass
+
 
 class _JsonRpcMethod():
     def __init__(self, url, name, session, method_prefix):
@@ -19,15 +19,16 @@ class _JsonRpcMethod():
         params = args if args else kwargs
         data = {
             'jsonrpc': '2.0',
-            'method': '{prefix}{name}'.format(prefix=self.method_prefix, name=self.name),
+            'method': '{prefix}{name}'.format(
+                       prefix=self.method_prefix, name=self.name),
             'id': 1
         }
 
         if params:
             data['params'] = params
-        
 
         self.session.post(self.url, data=json.dumps([data]))
+
 
 class Endpoint():
     def __init__(self, http_url, http_session, method_name_prefix=None):
@@ -36,4 +37,8 @@ class Endpoint():
         self.method_prefix = method_name_prefix
 
     def __getattr__(self, attr):
-        return _JsonRpcMethod(self.http_url, attr, self.http_session, self.method_prefix or '')
+        return _JsonRpcMethod(
+                self.http_url,
+                attr,
+                self.http_session,
+                self.method_prefix or '')

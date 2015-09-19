@@ -1,17 +1,17 @@
-
 import unittest
 from unittest import mock
 import json
 
+from jsonrpcclient import *
+
+
 class JsonMatching():
     def __init__(self, expected_dict):
         self.expected_dict = expected_dict
-    
+
     def __eq__(self, other):
         return json.loads(other) == self.expected_dict
 
-
-from jsonrpcclient import *
 
 class TestJsonRpcClient(unittest.TestCase):
     def setUp(self):
@@ -23,25 +23,55 @@ class TestJsonRpcClient(unittest.TestCase):
         e = Endpoint('root-uri', self.http_session)
         e.methodA()
 
-        self.http_session.post.assert_called_with('root-uri', data=JsonMatching([{'jsonrpc': '2.0', 'method': 'methodA', 'id': 1}]))
+        self.http_session.post.\
+            assert_called_with(
+                'root-uri',
+                data=JsonMatching([
+                    {'jsonrpc': '2.0', 'method': 'methodA', 'id': 1}
+                ]))
 
     def test_endpoint_prefixes_methods(self):
-        
-        e = Endpoint('root-uri', self.http_session, method_name_prefix='prefix-')
+
+        e = Endpoint(
+            'root-uri', self.http_session, method_name_prefix='prefix-')
+
         e.methodA()
 
-        self.http_session.post.assert_called_with('root-uri', data=JsonMatching([{'jsonrpc': '2.0', 'method': 'prefix-methodA', 'id': 1}]))
+        self.http_session.post.\
+            assert_called_with(
+                'root-uri',
+                data=JsonMatching([
+                    {'jsonrpc': '2.0', 'method': 'prefix-methodA', 'id': 1}
+                ]))
 
     def test_endpoint_passes_parameters(self):
         e = Endpoint('root-uri', self.http_session)
         e.methodA(12)
 
-        self.http_session.post.assert_called_with('root-uri', data=JsonMatching([{'jsonrpc': '2.0', 'method': 'methodA', 'params': [12], 'id': 1}]))
+        self.http_session.post.\
+            assert_called_with(
+                'root-uri',
+                data=JsonMatching([
+                    {
+                        'jsonrpc': '2.0',
+                        'method': 'methodA',
+                        'params': [12],
+                        'id': 1
+                    }
+                ]))
 
     def test_endpoint_passes_named_parameters(self):
         e = Endpoint('root-uri', self.http_session)
         e.methodA(param=12)
 
-        self.http_session.post.assert_called_with('root-uri', data=JsonMatching([{'jsonrpc': '2.0', 'method': 'methodA', 'params': {'param': 12 }, 'id': 1}]))
-
-
+        self.http_session.post.\
+            assert_called_with(
+                'root-uri',
+                data=JsonMatching([
+                    {
+                        'jsonrpc': '2.0',
+                        'method': 'methodA',
+                        'params': {'param': 12},
+                        'id': 1
+                    }
+                ]))
