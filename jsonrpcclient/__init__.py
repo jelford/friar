@@ -132,10 +132,12 @@ class Endpoint():
 
 
 class HttpPostTransport():
-    def __init__(self, endpoint_url, **kwargs):
+    def __init__(self, endpoint_url, headers=None):
         import requests
         self.endpoint_url = endpoint_url
-        self.session = requests.Session(**kwargs)
+        self.session = requests.Session()
+        if headers:
+            self.session.headers.update(headers)
 
     def send(self, payload):
         response = self.session.post(self.endpoint_url, data=payload)

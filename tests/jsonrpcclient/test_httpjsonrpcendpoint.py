@@ -42,9 +42,11 @@ class HttpPostTransportTest(unittest.TestCase):
 
     @mocking_session
     def test_extra_parameters_are_passed_through_to_session(self, Session, session_instance):
+        session_instance.headers = dict()
         under_test = HttpPostTransport('uri', headers={'key': 'value'})
 
-        Session.assert_called_with(headers={'key': 'value'})
+        Session.assert_called_with()
+        assert session_instance.headers == {'key': 'value'}
 
     @mocking_session
     def test_unwraps_response_objects(self, Session, session_instance):
