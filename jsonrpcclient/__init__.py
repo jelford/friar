@@ -1,6 +1,10 @@
 import json
 
 
+def http_rpc_endpoint(url, method_prefix=None, **kwargs):
+    return Endpoint(HttpPostTransport(url, **kwargs), method_prefix)
+
+
 class BadRequestConstructionError(Exception):
     pass
 
@@ -24,12 +28,12 @@ def _set_id(item, id):
 class _RequestSender():
     def __init__(self, transport, message_id_counter):
         self.transport = transport
-        self.get_next_message_id = message_id_counter
+        self.get__next_message_id = message_id_counter
 
     def _send(self, payload, async):
         if async is False:
             for item in payload:
-                _set_id(item, self.get_next_message_id())
+                _set_id(item, self.get__next_message_id())
 
         synchronous_response = \
             self.transport.send(json.dumps(payload if len(payload) > 1 else payload[0]))
@@ -108,7 +112,7 @@ class _BatchRequestBuilder():
 class Endpoint():
     def __init__(self, message_sender, method_name_prefix=None):
         self.message_sender = \
-            _RequestSender(message_sender, self.next_message_id)
+            _RequestSender(message_sender, self._next_message_id)
         self.method_prefix = method_name_prefix
         self.message_id = 0
 
@@ -122,16 +126,20 @@ class Endpoint():
                 self.message_sender,
                 self.method_prefix or '')
 
-    def next_message_id(self):
+    def _next_message_id(self):
         self.message_id += 1
         return self.message_id
 
 
 class HttpPostTransport():
-    def __init__(self, endpoint_url):
+    def __init__(self, endpoint_url, **kwargs):
         import requests
         self.endpoint_url = endpoint_url
-        self.session = requests.Session()
+        self.session = requests.Session(**kwargs)
 
     def send(self, payload):
-        self.session.post(self.endpoint_url, data=payload)
+        response = self.session.post(self.endpoint_url, data=payload)
+        response.raise_for_status()
+        if response.text:
+            print("respnse.text={}".format(response.text))
+            return response.text
