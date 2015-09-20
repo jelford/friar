@@ -125,3 +125,13 @@ class Endpoint():
     def next_message_id(self):
         self.message_id += 1
         return self.message_id
+
+
+class HttpPostTransport():
+    def __init__(self, endpoint_url):
+        import requests
+        self.endpoint_url = endpoint_url
+        self.session = requests.Session()
+
+    def send(self, payload):
+        self.session.post(self.endpoint_url, data=payload)
