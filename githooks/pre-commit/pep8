@@ -1,0 +1,7 @@
+#! /usr/bin/env sh
+set -e
+
+for pyfile in `git diff --staged --name-only | grep '\.py$'`;
+do
+    pep8 $pyfile
+done
