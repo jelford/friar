@@ -1,6 +1,4 @@
 set -e
 bumpversion $1
 tox
-python setup.py sdist bdist_wheel
-git push --tags
-twine upload -u jelford -p ${PYPI_PASSWORD} dist/*
+git push
