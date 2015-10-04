@@ -5,10 +5,10 @@ import json
 import requests
 from functools import wraps
 
-import jsonrpcclient
-from jsonrpcclient import HttpPostTransport, http_rpc_endpoint
+import friar
+from friar import HttpPostTransport, http_rpc_endpoint
 
-from jsonrpcclient_test_matchers import *
+from friar_test_matchers import *
 
 
 def _success_response_with_body(body='some-response-from-server'):
@@ -68,7 +68,7 @@ class HttpRpcSessionFactoryTest(unittest.TestCase):
                     headers={'X-Session': 'some-session-key'},
                     method_prefix='prefix')
 
-        assert isinstance(result, jsonrpcclient.Endpoint)
+        assert isinstance(result, friar.Endpoint)
 
         result.methodA(paramA=1)
 

@@ -3,9 +3,9 @@ from unittest import mock
 from unittest.mock import ANY
 import json
 
-from jsonrpcclient import *
+from friar import *
 
-from jsonrpcclient_test_matchers import *
+from friar_test_matchers import *
 
 
 class TestJsonRpcClient(unittest.TestCase):
