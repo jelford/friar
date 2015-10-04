@@ -14,4 +14,7 @@ deploy:
     on:
         tags: true
         branch: master
-        distributions: "bdist_wheel"
+        distributions: "sdist bdist_wheel"
+after_deploy:
+    "python setup.py bdist_wheel"
+    "twine upload -u jelford -p ${PYPI_PASSWORD} dist/*.whl"
