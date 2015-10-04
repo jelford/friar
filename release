@@ -2,4 +2,4 @@ set -e
 bumpversion $1
 tox
 python setup.py sdist bdist_wheel
-git push
+git push --tags
