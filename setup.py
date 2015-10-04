@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 
+__VERSION__ = '0.0.1'
+
 setup(
     name='friar',
-    version='0.0.1',
+    version=__VERSION__,
     description='A simple library for working with jsonrpc apis',
     long_description='A simple library for working with jsonrpc apis',
     url='http://jsonrpcclient.jameselford.com',
