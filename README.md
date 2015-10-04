@@ -1,6 +1,6 @@
 # Friar
 
-A datalab for betting markets
+A simple python library for wrapping JSON RPC interfaces
 
 ## Install instructions
 
@@ -8,4 +8,4 @@ A datalab for betting markets
 
 ## Usage
 
-There is no functionality yet
+See the tests for example usage
