@@ -6,6 +6,7 @@ install:
 script:
     - tox
 
+before_deploy: "pip install wheel --upgrade"
 deploy:
     provider: pypi
     user: "jelford"
