@@ -6,11 +6,4 @@ install:
 script:
     - tox
 
-deploy:
-    provider: pypi
-    user: "jelford"
-    password: ${PYPI_PASSWORD}
-    on:
-        tags: true
-        branch: master
-        distributions: "sdist bdist_wheel"
+
