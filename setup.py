@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-__VERSION__ = '0.0.6'
+__VERSION__ = '0.0.7'
 
 setup(
     name='friar',
