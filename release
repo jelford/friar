@@ -1,0 +1,4 @@
+set -e
+bumpversion $1
+tox
+git push
