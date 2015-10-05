@@ -11,10 +11,7 @@ deploy:
     provider: pypi
     user: "jelford"
     password: ${PYPI_PASSWORD}
+    distributions: "sdist bdist_wheel"
     on:
         tags: true
         branch: master
-        distributions: "sdist bdist_wheel"
-after_deploy:
-    "python setup.py bdist_wheel"
-    "twine upload -u jelford -p ${PYPI_PASSWORD} dist/*.whl"
