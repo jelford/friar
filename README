@@ -4,10 +4,4 @@
 
 A simple python library for wrapping JSON RPC interfaces
 
-## Install instructions
-
-    pip install friar
-
-## Usage
-
-See the tests for example usage
+For more details see the [github pages site](http://jameselford.com/friar) or go to [PyPI](https://pypi.python.org/pypi/friar)
